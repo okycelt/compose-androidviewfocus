@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -32,6 +33,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import cz.okycelt.compose.androidviewfocus.ui.theme.AndroidViewFocusTheme
@@ -55,6 +57,7 @@ fun Screen(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
+        val context = LocalContext.current
         val menuFocusRequester = remember { FocusRequester() }
         var hasMenuFocus by remember { mutableStateOf(false) }
 
@@ -76,6 +79,7 @@ fun Screen(
             enabled = !hasMenuFocus
         ) {
             menuFocusRequester.requestFocus()
+            Toast.makeText(context, "Back pressed", Toast.LENGTH_SHORT).show()
         }
     }
 }
